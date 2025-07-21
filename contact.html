@@ -1,0 +1,136 @@
+<!-- 文件名: contact.html (新文件) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - WeChat Green Edition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* 继承主页的全部样式 */
+        :root{--wechat-green:#3DFF8A;--accent-blue:#0075FF;--bg-black:#000000;--text-white:#FFFFFF;--bg-secondary-gray:#1A1A1A;--border-gray:#333333;--text-gray:#AAAAAA;--font-family:'Press Start 2P',cursive}*{margin:0;padding:0;box-sizing:border-box}body{background-color:var(--bg-black);color:var(--text-white);font-family:var(--font-family);line-height:1.6;overflow-x:hidden;image-rendering:pixelated}h1,h2,h3{color:var(--text-white);text-transform:uppercase}h2{font-size:1.5rem;text-align:center;margin-bottom:40px}h3{font-size:1.2rem}a{color:var(--text-white);text-decoration:none}#main-header{position:sticky;top:0;width:100%;z-index:1000;padding:15px 5%;background-color:var(--bg-black);border-bottom:2px solid var(--border-gray)}#main-header nav{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:0 auto}.logo{font-size:1.5rem;color:var(--text-white)}.btn{padding:12px 24px;border:2px solid var(--border-gray);cursor:pointer;font-family:var(--font-family);font-size:.8rem;text-transform:uppercase;transition:transform .1s}.btn:active{transform:translateY(2px)}.btn-secondary{background-color:var(--bg-secondary-gray);color:var(--text-white);border-color:var(--border-gray)}
+        
+        /* 联系页面的特定样式 */
+        .contact-section { padding: 80px 5%; }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            max-width: 1000px; /* 宽度可以窄一些 */
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .contact-card {
+            background-color: var(--bg-secondary-gray);
+            border: 2px solid var(--border-gray);
+            padding: 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 350px;
+        }
+        .contact-card .icon {
+            font-size: 3rem;
+            color: var(--wechat-green);
+            margin-bottom: 20px;
+        }
+        .contact-card .email-address {
+            font-size: 1rem;
+            color: var(--wechat-green);
+            margin-top: 10px;
+            word-break: break-all;
+        }
+        .contact-card .qr-code {
+            width: 160px;
+            height: 160px;
+            border: 2px solid var(--accent-blue);
+            margin-top: 20px;
+        }
+        .contact-card .description {
+            color: var(--text-gray);
+            font-size: 0.8rem;
+            margin-top: 20px;
+        }
+        .copy-button { /* 邮箱的复制按钮样式 */
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            cursor: pointer;
+            font-family: var(--font-family);
+            font-size: 0.8rem;
+            margin-top: 20px;
+            padding: 5px;
+            border-bottom: 1px dotted var(--text-gray);
+        }
+        .copy-button:hover {
+            color: var(--wechat-green);
+            border-bottom-color: var(--wechat-green);
+        }
+    </style>
+</head>
+<body>
+    <header id="main-header">
+        <nav>
+            <div class="logo">CONTACT US</div>
+            <a href="index.html" class="btn btn-secondary">BACK HOME</a>
+        </nav>
+    </header>
+    <main>
+        <section class="contact-section">
+            <h2>GET IN TOUCH</h2>
+            <div class="contact-grid">
+                <!-- 邮箱卡片 -->
+                <div class="contact-card">
+                    <div class="icon">[@]</div>
+                    <h3>EMAIL</h3>
+                    <p class="description">For any inquiries, please email us.</p>
+                    <p id="email-text" class="email-address">xxxxxx@example.com</p>
+                    <button id="copy-btn" class="copy-button">[ Click to Copy ]</button>
+                </div>
+
+                <!-- 飞书卡片 -->
+                <div class="contact-card">
+                    <div class="icon">
+                        <svg width="48" height="48" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M784.896 239.104C835.456 239.104 875.904 279.552 875.904 330.112V693.888C875.904 744.576 835.456 784.896 784.896 784.896H330.112C279.552 784.896 239.104 744.576 239.104 693.888V330.112C239.104 279.552 279.552 239.104 330.112 239.104H784.896Z" stroke="var(--wechat-green)" stroke-width="40.96" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M148.096 148.096H693.888C744.576 148.096 784.896 188.544 784.896 239.104V289.664" stroke="var(--wechat-green)" stroke-width="40.96" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M480.896 480.896H542.104" stroke="var(--wechat-green)" stroke-width="40.96" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M511.552 480.896V542.104" stroke="var(--wechat-green)" stroke-width="40.96" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>FEISHU GROUP</h3>
+                    <p class="description">Scan the QR code to join our community.</p>
+                    <!-- 飞书群二维码占位符 -->
+                    <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://www.feishu.cn/" alt="Feishu Group QR Code">
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        // 邮箱复制功能
+        const copyBtn = document.getElementById('copy-btn');
+        const emailText = document.getElementById('email-text');
+
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(emailText.innerText)
+                .then(() => {
+                    copyBtn.innerText = '[ Copied! ]';
+                    setTimeout(() => {
+                        copyBtn.innerText = '[ Click to Copy ]';
+                    }, 2000); // 2秒后恢复
+                })
+                .catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+        });
+    </script>
+</body>
+</html>

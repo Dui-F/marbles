@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centra [WeChat Green Edition]</title>
+    <!-- 引入 Google Pixel 字体 "Press Start 2P" -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 全新调色板 --- */
+        :root {
+            --wechat-green: #3DFF8A;
+            --accent-blue: #0075FF;
+            --bg-black: #000000;
+            --text-white: #FFFFFF;
+            --bg-secondary-gray: #1A1A1A;
+            --border-gray: #333333;
+            --text-gray: #AAAAAA;
+            --font-family: 'Press Start 2P', cursive;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-family); line-height: 1.6; overflow-x: hidden; image-rendering: pixelated; }
+        h1, h2, h3 { color: var(--text-white); text-transform: uppercase; }
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 1.5rem; text-align: center; margin-bottom: 40px; }
+        h3 { font-size: 1rem; }
+        a { color: var(--text-white); text-decoration: none; }
+
+        /* --- 导航栏 --- */
+        #main-header {
+            position: sticky; top: 0; width: 100%; z-index: 1000; padding: 15px 5%;
+            background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
+            transition: background-color 0.3s, border-bottom 0.3s;
+        }
+        #main-header.scrolled {
+            background-color: var(--bg-black);
+            border-bottom: 2px solid var(--border-gray);
+        }
+        #main-header nav { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
+        .logo { font-size: 1.5rem; color: var(--text-white); }
+        .nav-links { display: none; }
+
+        /* --- Hero Banner --- */
+        .hero-section { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 70vh; padding: 40px 5%; position: relative; }
+        .hero-section::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: repeating-linear-gradient(transparent, transparent 2px, rgba(255,255,255,0.05) 2px, rgba(255,255,255,0.05) 3px); pointer-events: none; z-index: 1; }
+        .hero-content { position: relative; z-index: 2; }
+        .hero-content h1 { line-height: 1.4; margin-bottom: 20px; }
+        .hero-content .highlight { color: var(--wechat-green); }
+        .hero-content p { font-size: 0.9rem; max-width: 600px; margin: 0 auto 40px auto; color: var(--text-gray); }
+        .hero-buttons { display: flex; justify-content: center; gap: 20px; }
+        .btn { padding: 12px 24px; border: 2px solid var(--bg-black); cursor: pointer; font-family: var(--font-family); font-size: 0.8rem; text-transform: uppercase; transition: transform 0.1s; }
+        .btn:active { transform: translateY(2px); }
+        .btn-primary { background-color: var(--wechat-green); color: var(--bg-black); }
+        .btn-secondary { background-color: var(--bg-secondary-gray); color: var(--text-white); border-color: var(--border-gray); }
+        
+        /* 动态文本动画 */
+        .animated-text { display: inline-block; transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; opacity: 1; transform: translateY(0); }
+        .animated-text.fade { opacity: 0; transform: translateY(10px); }
+
+        /* --- 卡片网格布局 --- */
+        .gzh-showcase { padding: 60px 5%; }
+        .card-grid { display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 1400px; margin: 0 auto; }
+        @media (min-width: 768px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .card-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        /* --- 卡片结构 --- */
+        .gzh-card { display: block; background-color: var(--bg-secondary-gray); border: 2px solid var(--border-gray); overflow: hidden; position: relative; transition: transform 0.2s, box-shadow 0.2s; }
+        .gzh-card:hover { transform: translateY(-5px); box-shadow: 0 0 15px var(--wechat-green); }
+        .card-image-container { position: relative; background-color: var(--bg-secondary-gray); aspect-ratio: 3 / 4; }
+        .image-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 15px; background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 60%, transparent 100%); }
+        .overlay-subtext { font-size: 0.7rem; color: var(--text-gray); margin-top: 5px; }
+        .qr-code-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(2px); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease-in-out; }
+        .gzh-card:hover .qr-code-overlay { opacity: 1; pointer-events: auto; }
+        .qr-code-overlay img { width: 128px; height: 128px; border: 2px solid var(--accent-blue); }
+        .qr-code-overlay span { margin-top: 15px; font-size: 0.8rem; color: var(--accent-blue); text-transform: uppercase; }
+        
+        /* --- 页脚 --- */
+        .main-footer { background-color: var(--bg-black); padding: 60px 5%; border-top: 2px solid var(--border-gray); }
+        .footer-container { max-width: 1400px; margin: 0 auto; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 40px; }
+        .footer-col h4 { color: var(--accent-blue); font-size: 0.9rem; margin-bottom: 20px; }
+        .footer-col .logo { font-size: 1.5rem; margin-bottom: 15px; }
+        .footer-col .tagline { font-size: 0.8rem; color: var(--text-gray); line-height: 1.5; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul a::before { content: ". "; }
+        .footer-col ul a { font-size: 0.9rem; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-gray); padding-top: 30px; font-size: 0.8rem; color: var(--text-gray); }
+        .social-icons { font-family: monospace; font-size: 1rem; }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <nav>
+            <div class="logo">CONTENT HUB</div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>The future of commerce is <span class="highlight animated-text">Global</span></h1>
+                <p>The headless commerce platform for global brands and digital natives.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">Get a demo</button>
+                    <button class="btn btn-secondary">Explore</button>
+                </div>
+            </div>
+        </section>
+        
+        <section class="gzh-showcase">
+            <h2>FEATURED CONTENT</h2>
+            <div class="card-grid">
+                <!-- 卡片模板 -->
+                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: var(--wechat-green);"><div class="image-overlay"><h3>Quantum CPU</h3><p class="overlay-subtext">Tech Update</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_1" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: var(--accent-blue);"><div class="image-overlay"><h3>Pixel-Pod Pro</h3><p class="overlay-subtext">Product Launch</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_2" alt="QR Code"><span>Scan for Details</span></div></a>
+                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: #FF8C00;"><div class="image-overlay"><h3>City at Dusk</h3><p class="overlay-subtext">Photo Gallery</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_3" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: #e74fb2;"><div class="image-overlay"><h3>Future of Web 3.0</h3><p class="overlay-subtext">Virtual Summit</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_4" alt="QR Code"><span>Scan to Register</span></div></a>
+                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: #8338ec;"><div class="image-overlay"><h3>Code is Poetry</h3><p class="overlay-subtext">Dev Thoughts</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_5" alt="QR Code"><span>Scan to Read</span></div></a>
+                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: var(--accent-blue);"><div class="image-overlay"><h3>Server Maintenance</h3><p class="overlay-subtext">Official Notice</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_6" alt="QR Code"><span>Scan for Status</span></div></a>
+                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: var(--wechat-green);"><div class="image-overlay"><h3>AI Creates Art</h3><p class="overlay-subtext">Creative Tech</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_7" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: #FF8C00;"><div class="image-overlay"><h3>CyberDeck v2</h3><p class="overlay-subtext">New Hardware</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_8" alt="QR Code"><span>Scan for Specs</span></div></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-col"><div class="logo">CONTENT HUB</div><p class="tagline">Curated content from the digital frontier.</p></div>
+                <div class="footer-col"><h4>CATEGORIES</h4><ul><li><a href="#">Tech</a></li><li><a href="#">Design</a></li><li><a href="#">Culture</a></li></ul></div>
+                <div class="footer-col"><h4>COMPANY</h4><ul><li><a href="#">About Us</a></li><li><a href="/contact.html">Contact</a></li><li><a href="#">Careers</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><span>© 2024. All rights reserved.</span><div class="social-icons">[L] [T] [I]</div></div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 10) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            const animatedText = document.querySelector('.animated-text');
+            if (animatedText) {
+                const words = ['Composable', 'Headless', 'Global'];
+                let wordIndex = words.indexOf('Global'); // Start with 'Global'
+                setInterval(() => {
+                    wordIndex = (wordIndex + 1) % words.length;
+                    animatedText.classList.add('fade');
+                    setTimeout(() => {
+                        animatedText.textContent = words[wordIndex];
+                        animatedText.classList.remove('fade');
+                    }, 500);
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
