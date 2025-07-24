@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centra [WeChat Green Edition]</title>
-    <!-- 引入 Google Pixel 字体 "Press Start 2P" -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>公众号排版器 - 主题中心</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -64,12 +64,19 @@
         .gzh-showcase { padding: 60px 5%; }
         .card-grid { display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 1400px; margin: 0 auto; }
         @media (min-width: 768px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1024px) { .card-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (min-width: 1024px) { .card-grid { grid-template-columns: repeat(5, 1fr); } }
 
         /* --- 卡片结构 --- */
-        .gzh-card { display: block; background-color: var(--bg-secondary-gray); border: 2px solid var(--border-gray); overflow: hidden; position: relative; transition: transform 0.2s, box-shadow 0.2s; }
+        .gzh-card { display: block; background-color: var(--bg-secondary-gray); border: 2px solid var(--border-gray); border-radius: 12px; overflow: hidden; position: relative; transition: transform 0.2s, box-shadow 0.2s; }
         .gzh-card:hover { transform: translateY(-5px); box-shadow: 0 0 15px var(--wechat-green); }
-        .card-image-container { position: relative; background-color: var(--bg-secondary-gray); aspect-ratio: 3 / 4; }
+        .card-image-container { 
+            position: relative; 
+            background-color: var(--bg-secondary-gray); 
+            aspect-ratio: 3 / 4; 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+        }
         .image-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 15px; background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 60%, transparent 100%); }
         .overlay-subtext { font-size: 0.7rem; color: var(--text-gray); margin-top: 5px; }
         .qr-code-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(2px); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease-in-out; }
@@ -96,34 +103,43 @@
 
     <header id="main-header">
         <nav>
-            <div class="logo">CONTENT HUB</div>
+            <div class="logo">THEME HUB</div>
         </nav>
     </header>
 
     <main>
         <section class="hero-section">
             <div class="hero-content">
-                <h1>The future of commerce is <span class="highlight animated-text">Global</span></h1>
-                <p>The headless commerce platform for global brands and digital natives.</p>
-                <div class="hero-buttons">
+                <h1>The future of content is <span class="highlight animated-text">Boundless</span></h1>
+                <p>A content theme and layout platform for modern digital publishing.</p>
+                <!-- <div class="hero-buttons">
                     <button class="btn btn-primary">Get a demo</button>
                     <button class="btn btn-secondary">Explore</button>
-                </div>
+                </div> -->
             </div>
         </section>
         
         <section class="gzh-showcase">
-            <h2>FEATURED CONTENT</h2>
+            <h2>FEATURED THEME</h2>
             <div class="card-grid">
                 <!-- 卡片模板 -->
-                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: var(--wechat-green);"><div class="image-overlay"><h3>Quantum CPU</h3><p class="overlay-subtext">Tech Update</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_1" alt="QR Code"><span>Scan to View</span></div></a>
-                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: var(--accent-blue);"><div class="image-overlay"><h3>Pixel-Pod Pro</h3><p class="overlay-subtext">Product Launch</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_2" alt="QR Code"><span>Scan for Details</span></div></a>
-                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: #FF8C00;"><div class="image-overlay"><h3>City at Dusk</h3><p class="overlay-subtext">Photo Gallery</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_3" alt="QR Code"><span>Scan to View</span></div></a>
-                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: #e74fb2;"><div class="image-overlay"><h3>Future of Web 3.0</h3><p class="overlay-subtext">Virtual Summit</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_4" alt="QR Code"><span>Scan to Register</span></div></a>
-                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: #8338ec;"><div class="image-overlay"><h3>Code is Poetry</h3><p class="overlay-subtext">Dev Thoughts</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_5" alt="QR Code"><span>Scan to Read</span></div></a>
-                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: var(--accent-blue);"><div class="image-overlay"><h3>Server Maintenance</h3><p class="overlay-subtext">Official Notice</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_6" alt="QR Code"><span>Scan for Status</span></div></a>
-                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: var(--wechat-green);"><div class="image-overlay"><h3>AI Creates Art</h3><p class="overlay-subtext">Creative Tech</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_7" alt="QR Code"><span>Scan to View</span></div></a>
-                <a href="#" class="gzh-card"><div class="card-image-container" style="background-color: #FF8C00;"><div class="image-overlay"><h3>CyberDeck v2</h3><p class="overlay-subtext">New Hardware</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Article_8" alt="QR Code"><span>Scan for Specs</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/NzsNHcpTk7iAj5_lQgtCmw" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme1.png');"><div class="image-overlay"><h3>Theme 1</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/NzsNHcpTk7iAj5_lQgtCmw" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/gOvnCT4DC-jYpTgn6Xaz1w" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme2.png');"><div class="image-overlay"><h3>Theme 2</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/gOvnCT4DC-jYpTgn6Xaz1w" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/7GKRFglNvAfDw2Tejib14A" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme3.png');"><div class="image-overlay"><h3>Theme 3</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/7GKRFglNvAfDw2Tejib14A" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/lwK1cDyJQRUWor7adhImqQ" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme4.png');"><div class="image-overlay"><h3>Theme 4</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/lwK1cDyJQRUWor7adhImqQ" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/ga3d5rMYLgxb18EA16ME5A" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme5.png');"><div class="image-overlay"><h3>Theme 5</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/ga3d5rMYLgxb18EA16ME5A" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/_tE9L54W_4RQq_p-WEygng" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme6.png');"><div class="image-overlay"><h3>Theme 6</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/_tE9L54W_4RQq_p-WEygng" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/R419tpNq3ZbNkZj91N3MxA" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme7.png');"><div class="image-overlay"><h3>Theme 7</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/R419tpNq3ZbNkZj91N3MxA" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/YR4ijAF4OSmDivZRbecKcg" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme8.png');"><div class="image-overlay"><h3>Theme 8</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/YR4ijAF4OSmDivZRbecKcg" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/zKU4A4C7RZemrACLpy3e1A" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme9.png');"><div class="image-overlay"><h3>Theme 9</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/zKU4A4C7RZemrACLpy3e1A" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/ejLqbweO-7jGW8ziZC0eRA" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme10.png');"><div class="image-overlay"><h3>Theme 10</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/ejLqbweO-7jGW8ziZC0eRA" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/0A9AtsYiktXfRtWEBwFd9A" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme11.png');"><div class="image-overlay"><h3>Theme 11</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/0A9AtsYiktXfRtWEBwFd9A" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/udECrArQFbDKb4Tl1taAaQ" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme12.png');"><div class="image-overlay"><h3>Theme 12</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/udECrArQFbDKb4Tl1taAaQ" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/WUAu9aa8tLO3cR375VYviA" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme13.png');"><div class="image-overlay"><h3>Theme 13</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/WUAu9aa8tLO3cR375VYviA" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/XP6kbK5OIo6LkoILujt92Q" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme14.png');"><div class="image-overlay"><h3>Theme 14</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/XP6kbK5OIo6LkoILujt92Q" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/R8SEMgUSOmfbWyuuyzYEUA" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme15.png');"><div class="image-overlay"><h3>Theme 15</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/R8SEMgUSOmfbWyuuyzYEUA" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/ChTfAm6XnHauWz1AkfOp8Q" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme16.png');"><div class="image-overlay"><h3>Theme 16</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/ChTfAm6XnHauWz1AkfOp8Q" alt="QR Code"><span>Scan to View</span></div></a>
+                <a href="https://mp.weixin.qq.com/s/qOzORadzjc9Vz6U1k4yvpg" target="_blank" class="gzh-card"><div class="card-image-container" style="background-image: url('./theme/theme17.png');"><div class="image-overlay"><h3>Theme 17</h3><p class="overlay-subtext">Design Collection</p></div></div><div class="qr-code-overlay"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://mp.weixin.qq.com/s/qOzORadzjc9Vz6U1k4yvpg" alt="QR Code"><span>Scan to View</span></div></a>
             </div>
         </section>
     </main>
@@ -131,11 +147,27 @@
     <footer class="main-footer">
         <div class="footer-container">
             <div class="footer-top">
-                <div class="footer-col"><div class="logo">CONTENT HUB</div><p class="tagline">Curated content from the digital frontier.</p></div>
-                <div class="footer-col"><h4>CATEGORIES</h4><ul><li><a href="#">Tech</a></li><li><a href="#">Design</a></li><li><a href="#">Culture</a></li></ul></div>
-                <div class="footer-col"><h4>COMPANY</h4><ul><li><a href="#">About Us</a></li><li><a href="/contact.html">Contact</a></li><li><a href="#">Careers</a></li></ul></div>
+                <div class="footer-col"><div class="logo">THEME HUB</div><p class="tagline">Curated content from the digital frontier.</p></div>
+                <div class="footer-col">
+                    <h4>CATEGORIES</h4>
+                    <ul>
+                        <li><a href="./video.html">Video</a></li>
+                        <li><a href="#">UserServers</a></li>
+                        <li><a href="#">Culture</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>COMPANY</h4>
+                    <ul>
+                        <li><a href="./video.html">About Us</a></li>
+                        <li><a href="./contact.html">Contact</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-bottom"><span>© 2024. All rights reserved.</span><div class="social-icons">[L] [T] [I]</div></div>
+            <div class="footer-bottom">
+                <span>© 2025. All rights reserved.</span>
+                <!-- <div class="social-icons">[L] [T] [I]</div> -->
+            </div>
         </div>
     </footer>
 
@@ -152,8 +184,8 @@
 
             const animatedText = document.querySelector('.animated-text');
             if (animatedText) {
-                const words = ['Composable', 'Headless', 'Global'];
-                let wordIndex = words.indexOf('Global'); // Start with 'Global'
+                const words = ['Creative', 'Boundless', 'Digital'];
+                let wordIndex = words.indexOf('Boundless'); // Start with 'Boundless'
                 setInterval(() => {
                     wordIndex = (wordIndex + 1) % words.length;
                     animatedText.classList.add('fade');
