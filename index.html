@@ -84,6 +84,45 @@
         .qr-code-overlay img { width: 128px; height: 128px; border: 2px solid var(--accent-blue); }
         .qr-code-overlay span { margin-top: 15px; font-size: 0.8rem; color: var(--accent-blue); text-transform: uppercase; }
         
+        /* --- 应用区域 --- */
+        .app-section { padding: 60px 5%; background-color: var(--bg-secondary-gray); }
+        .app-container { max-width: 1400px; margin: 0 auto; }
+        .app-title { text-align: center; margin-bottom: 40px; color: var(--text-white); }
+        .app-content { display: flex; align-items: center; gap: 30px; margin-bottom: 30px; }
+        .app-textarea { width: 600px; height: 600px; padding: 15px; background-color: var(--bg-black); border: 2px solid var(--border-gray); border-radius: 8px; color: var(--text-white); font-family: var(--font-family); font-size: 0.9rem; resize: vertical; }
+        .app-textarea:focus { outline: none; border-color: var(--wechat-green); }
+        .app-output { width: 600px; height: 600px; padding: 15px; background-color: var(--bg-black); border: 2px solid var(--border-gray); border-radius: 8px; color: var(--text-white); font-family: var(--font-family); font-size: 0.9rem; overflow-y: auto; white-space: pre-wrap; word-wrap: break-word; position: relative; }
+        
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--accent-blue);
+        }
+        
+        .loading::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-gray);
+            border-top: 2px solid var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .app-convert-btn { width: 100px;padding: 15px; background-color: var(--wechat-green); color: var(--bg-black); border: none; border-radius: 8px; cursor: pointer; font-family: var(--font-family); font-size: 0.9rem; font-weight: bold; transition: transform 0.1s; }
+        .app-convert-btn:hover { transform: translateY(-2px); }
+        .app-convert-btn:active { transform: translateY(2px); }
+        .app-copy-btn { display: block; margin: 0 auto; padding: 12px 24px; background-color: var(--bg-black); color: var(--text-white); border: 2px solid var(--border-gray); border-radius: 8px; cursor: pointer; font-family: var(--font-family); font-size: 0.9rem; transition: border-color 0.2s; }
+        .app-copy-btn:hover { border-color: var(--wechat-green); }
+        @media (max-width: 1300px) { .app-content { flex-direction: column; align-items: center; } .app-textarea { width: 100%; max-width: 600px; } }
+
         /* --- 页脚 --- */
         .main-footer { background-color: var(--bg-black); padding: 60px 5%; border-top: 2px solid var(--border-gray); }
         .footer-container { max-width: 1400px; margin: 0 auto; }
@@ -112,10 +151,18 @@
             <div class="hero-content">
                 <h1>The future of content is <span class="highlight animated-text">Boundless</span></h1>
                 <p>A content theme and layout platform for modern digital publishing.</p>
-                <!-- <div class="hero-buttons">
-                    <button class="btn btn-primary">Get a demo</button>
-                    <button class="btn btn-secondary">Explore</button>
-                </div> -->
+            </div>
+        </section>
+        
+        <section class="app-section">
+            <div class="app-container">
+                <h2 class="app-title">ARTICLE FORMATTER</h2>
+                <div class="app-content">
+                    <textarea class="app-textarea" id="inputText" placeholder="在此输入原始文本..."></textarea>
+                    <button class="app-convert-btn" onclick="convertText()">转换</button>
+                    <div class="app-output" id="outputText"></div>
+                </div>
+                <button class="app-copy-btn" onclick="copyResult()">复制结果</button>
             </div>
         </section>
         
@@ -174,6 +221,7 @@
         </div>
     </footer>
 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const header = document.getElementById('main-header');
@@ -199,6 +247,96 @@
                 }, 3000);
             }
         });
+
+        // 文本转换功能
+        async function convertText() {
+            const inputText = document.getElementById('inputText').value;
+            const outputDiv = document.getElementById('outputText');
+            
+            if (!inputText.trim()) {
+                alert('请输入要转换的文本');
+                return;
+            }
+            
+            // 显示加载状态
+            outputDiv.innerHTML = '<div class="loading">正在转换中...</div>';
+            outputDiv.classList.add('loading-state');
+            const suffix = "，请识别并分析文档中的标题、列表、代码块、高亮块、引用块、图片、描述等各类元素，并按照其语义和功能进行精确归类。作为专业的文档排版设计师，请在完成内容分析后，只能从以下风格中选择一种或者多种进行搭配：Bento Grid，Glassmorphism，Cyberpunk, Game UI/HUD，The Conspiracy Board，Children's Storybook，Sacred Text/Antique Scroll，Aurora Gradient & Soft UI，Victorian Engraving/Gothic，并据此设计相应的视觉样式。对于代码内容，请使用专业IDE编辑器的样式进行包装，确保语法高亮效果完整呈现。请巧妙运用换行符、内边距和外边距来创建层次分明的视觉分隔效果，营造美观且符合阅读习惯的版面布局。请输出完整的HTML body部分内容，div标签都换成section标签输出给我,所有样式必须以内联方式写入各个标签中，严禁在头部使用style标签。统一设置字体大小为14-16px，每个标签的内联样式应当丰富完整，务必确保原文内容一字不漏地完整保留。输出内容的开头严禁使用h1-h6等标题标签，不得添加原文以外的任何内容，不得擅自插入新的文案，严禁出现任何总结性或概括性的文字。"
+            try {
+                const response = await axios.post('https://api.302ai.cn/v1/chat/completions', {
+                    model: "gemini-2.5-pro",
+                    messages: [{"role": "user", "content": inputText + suffix}]
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer sk-6TLoFLgThXVhhjBU1TzREz0LjRz29tURYsVEJiXkzpX0mzOH'
+                    }
+                });
+                
+                const responseText = response.data.choices[0].message.content;
+                outputDiv.classList.remove('loading-state');
+                outputDiv.innerHTML = '';
+                
+                const bodyMatch = responseText.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+                
+                if (bodyMatch && bodyMatch[1]) {
+                    // 获取body标签内的内容
+                    const bodyContent = bodyMatch[1].trim();
+                    
+                    // 清理HTML代码块标记
+                    const cleanedBodyContent = bodyContent.replace(/```html([\s\S]*?)```/g, '$1');
+                    console.log('cleanedBodyContent===1===', cleanedBodyContent)
+                    outputDiv.innerHTML = cleanedBodyContent
+                } else {
+                    // 如果没有找到body标签，直接使用整个响应内容
+                    const cleanedResponseText = responseText.replace(/```html([\s\S]*?)```/g, '$1');
+                    console.log('cleanedResponseText===2===', cleanedResponseText)
+                    outputDiv.innerHTML = cleanedResponseText
+                } 
+            } catch (error) {
+                console.error('转换失败:', error);
+                outputDiv.classList.remove('loading-state');
+                outputDiv.innerHTML = '';
+                outputDiv.textContent = '转换失败，请检查网络连接或稍后重试。';
+            }
+        }
+
+        // 复制结果功能
+        function copyResult() {
+            const outputDiv = document.getElementById('outputText');
+            
+            if (!outputDiv.textContent.trim() || outputDiv.textContent === '转换结果将显示在这里...') {
+                alert('没有可复制的内容');
+                return;
+            }
+            
+            // 使用现代API复制文本
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(outputDiv.textContent).then(() => {
+                    alert('复制成功！');
+                }).catch(() => {
+                    fallbackCopy(outputDiv.textContent);
+                });
+            } else {
+                fallbackCopy(outputDiv.textContent);
+            }
+        }
+        
+        // 备用复制方法
+        function fallbackCopy(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                alert('复制成功！');
+            } catch (err) {
+                alert('复制失败，请手动复制');
+            }
+            document.body.removeChild(textArea);
+        }
     </script>
 </body>
 </html>
