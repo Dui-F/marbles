@@ -88,17 +88,43 @@
         .app-section { padding: 60px 5%; background-color: var(--bg-secondary-gray); }
         .app-container { max-width: 1400px; margin: 0 auto; }
         .app-title { text-align: center; margin-bottom: 40px; color: var(--text-white); }
-        .app-content { display: flex; align-items: center; gap: 30px; margin-bottom: 30px; }
-        .app-textarea { width: 600px; height: 600px; padding: 15px; background-color: var(--bg-black); border: 2px solid var(--border-gray); border-radius: 8px; color: var(--text-white); font-family: var(--font-family); font-size: 0.9rem; resize: vertical; }
+        .app-content { display: flex; align-items: center; gap: 30px; margin-bottom: 30px; justify-content: space-around;}
+        .app-textarea { font-family: 'micro yahei' !important;width: 600px; height: 600px; padding: 15px; background-color: var(--bg-black); border: 2px solid var(--border-gray); border-radius: 8px; color: var(--text-white); font-family: var(--font-family); font-size: 0.9rem; resize: vertical; }
         .app-textarea:focus { outline: none; border-color: var(--wechat-green); }
-        .app-output { width: 600px; height: 600px; padding: 15px; background-color: var(--bg-black); border: 2px solid var(--border-gray); border-radius: 8px; color: var(--text-white); font-family: var(--font-family); font-size: 0.9rem; overflow-y: auto; white-space: pre-wrap; word-wrap: break-word; position: relative; }
+        
+        /* 自定义滚动条样式 */
+        .app-textarea::-webkit-scrollbar,
+        .app-output::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .app-textarea::-webkit-scrollbar-track,
+        .app-output::-webkit-scrollbar-track {
+            background: var(--bg-black);
+            border-radius: 4px;
+        }
+        
+        .app-textarea::-webkit-scrollbar-thumb,
+        .app-output::-webkit-scrollbar-thumb {
+            background: var(--wechat-green);
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+        
+        .app-textarea::-webkit-scrollbar-thumb:hover,
+        .app-output::-webkit-scrollbar-thumb:hover {
+            background: #2EE67A;
+        }
+        
+        .app-output { font-family: 'micro yahei' !important; width: 600px; height: 600px; padding: 15px; background-color: var(--bg-black); border: 2px solid var(--border-gray); border-radius: 8px; color: var(--text-white); font-family: var(--font-family); font-size: 0.9rem; overflow-y: auto; white-space: pre-wrap; word-wrap: break-word; position: relative; }
         
         .loading {
+            font-family: 'micro yahei' !important; 
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100%;
-            color: var(--accent-blue);
+            color: #2EE67A;
         }
         
         .loading::before {
@@ -106,7 +132,7 @@
             width: 20px;
             height: 20px;
             border: 2px solid var(--border-gray);
-            border-top: 2px solid var(--accent-blue);
+            border-top: 2px solid #2EE67A;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin-right: 10px;
@@ -261,9 +287,9 @@
             }
             
             // 显示加载状态
-            outputDiv.innerHTML = '<div class="loading">正在转换中...</div>';
+            outputDiv.innerHTML = '<div class="loading">正在排版中...</div>';
             outputDiv.classList.add('loading-state');
-            const suffix = "，请识别并分析文档中的标题、列表、代码块、高亮块、引用块、图片、描述等各类元素，并按照其语义和功能进行精确归类。作为专业的文档排版设计师，请在完成内容分析后，只能从以下风格中选择一种或者多种进行搭配：Bento Grid，Glassmorphism，Cyberpunk, Game UI/HUD，The Conspiracy Board，Children's Storybook，Sacred Text/Antique Scroll，Aurora Gradient & Soft UI，Victorian Engraving/Gothic，并据此设计相应的视觉样式。对于代码内容，请使用专业IDE编辑器的样式进行包装，确保语法高亮效果完整呈现。请巧妙运用换行符、内边距和外边距来创建层次分明的视觉分隔效果，营造美观且符合阅读习惯的版面布局。请输出完整的HTML body部分内容，div标签都换成section标签输出给我,所有样式必须以内联方式写入各个标签中，严禁在头部使用style标签。统一设置字体大小为14-16px，每个标签的内联样式应当丰富完整，务必确保原文内容一字不漏地完整保留。输出内容的开头严禁使用h1-h6等标题标签，不得添加原文以外的任何内容，不得擅自插入新的文案，严禁出现任何总结性或概括性的文字。"
+            const suffix = "，请识别并分析文档中的标题、列表、代码块、高亮块、引用块、图片、描述等各类元素，并按照其语义和功能进行精确归类。作为专业的文档排版设计师，请在完成内容分析后，只能从以下风格中随机选择一种进行搭配：Bento Grid、Masonry、Uniform Grid、Single Column、Magazine、Broken Grid、Card-Based、Hero Section、Timeline、Full-Screen, 并据此设计相应的视觉样式。对于代码内容，请使用专业IDE编辑器的样式进行包装，确保语法高亮效果完整呈现。请巧妙运用换行符、内边距和外边距来创建层次分明的视觉分隔效果，营造美观且符合阅读习惯的版面布局。请输出完整的HTML body部分内容，div标签都换成section标签输出给我,所有样式必须以内联方式写入各个标签中，严禁在头部使用style标签。统一设置字体大小为14-16px，每个标签的内联样式应当丰富完整，务必确保原文内容一字不漏地完整保留。输出内容的开头严禁使用h1-h6等标题标签，不得添加原文以外的任何内容，不得擅自插入新的文案，严禁出现任何总结性或概括性的文字。"
             try {
                 const response = await axios.post('https://api.302ai.cn/v1/chat/completions', {
                     model: "gemini-2.5-pro",
@@ -288,12 +314,10 @@
                     
                     // 清理HTML代码块标记
                     const cleanedBodyContent = bodyContent.replace(/```html([\s\S]*?)```/g, '$1');
-                    console.log('cleanedBodyContent===1===', cleanedBodyContent)
                     outputDiv.innerHTML = cleanedBodyContent
                 } else {
                     // 如果没有找到body标签，直接使用整个响应内容
                     const cleanedResponseText = responseText.replace(/```html([\s\S]*?)```/g, '$1');
-                    console.log('cleanedResponseText===2===', cleanedResponseText)
                     outputDiv.innerHTML = cleanedResponseText
                 } 
             } catch (error) {
@@ -305,27 +329,105 @@
         }
 
         // 复制结果功能
-        function copyResult() {
-            const outputDiv = document.getElementById('outputText');
+        async function copyResult() {
+            const contentToCopy = document.getElementById('outputText');
             
-            if (!outputDiv.textContent.trim() || outputDiv.textContent === '转换结果将显示在这里...') {
+            if (!contentToCopy || !contentToCopy.textContent.trim() || contentToCopy.textContent === '转换结果将显示在这里...') {
                 alert('没有可复制的内容');
                 return;
             }
             
-            // 使用现代API复制文本
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(outputDiv.textContent).then(() => {
-                    alert('复制成功！');
-                }).catch(() => {
-                    fallbackCopy(outputDiv.textContent);
-                });
-            } else {
-                fallbackCopy(outputDiv.textContent);
+            
+            const range = document.createRange();
+            let tempDiv = null;
+            
+            try {
+                // 创建临时 div 并添加到文档中
+                tempDiv = document.createElement('section');
+                tempDiv.innerHTML = contentToCopy.innerHTML;
+                tempDiv.style.display = 'block';
+                document.body.appendChild(tempDiv);
+                range.selectNode(tempDiv);
+                
+                const selection = window.getSelection();
+                selection?.removeAllRanges();
+                selection?.addRange(range);
+                
+                try {
+                     // 准备HTML内容 - 获取完整的HTML结构包括所有样式
+                     const htmlContent = contentToCopy.innerHTML;
+                     // 准备纯文本内容
+                     const textContent = contentToCopy.textContent || '';
+                     
+                     // 尝试使用现代Clipboard API
+                     if (navigator.clipboard && navigator.clipboard.write) {
+                         await navigator.clipboard.write([
+                             new ClipboardItem({
+                                 'text/html': new Blob([htmlContent], { type: 'text/html' }),
+                                 'text/plain': new Blob([textContent], { type: 'text/plain' })
+                             })
+                         ]);
+                         
+                         alert('复制成功，可在公众号中粘贴');
+                     } else {
+                         // 回退到传统方法 - 直接复制选中的内容
+                         if (document.execCommand('copy')) {
+                             alert('复制成功，可在公众号中粘贴');
+                         } else {
+                             throw new Error('复制功能不受支持');
+                         }
+                     }
+                 } catch (copyErr) {
+                     console.error('复制失败:', copyErr);
+                     // 使用备用复制方法 - 创建隐藏的可编辑div来复制HTML
+                     fallbackCopyHTML(htmlContent);
+                 }
+            } catch (err) {
+                console.error('复制操作失败:', err);
+                alert('复制失败');
+            } finally {
+                // 清理工作
+                const selection = window.getSelection();
+                selection?.removeAllRanges();
+                
+                // 如果临时 div 存在，从文档中移除
+                if (tempDiv && tempDiv.parentNode) {
+                    document.body.removeChild(tempDiv);
+                }
             }
         }
         
-        // 备用复制方法
+        // 备用复制方法 - 复制HTML内容
+        function fallbackCopyHTML(htmlContent) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlContent;
+            tempDiv.style.position = 'absolute';
+            tempDiv.style.left = '-9999px';
+            tempDiv.contentEditable = true;
+            document.body.appendChild(tempDiv);
+            
+            const range = document.createRange();
+            range.selectNodeContents(tempDiv);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            
+            try {
+                const success = document.execCommand('copy');
+                if (success) {
+                    alert('复制成功，包含完整HTML样式！');
+                } else {
+                    alert('复制失败，请手动复制');
+                }
+            } catch (err) {
+                alert('复制失败，请手动复制');
+            }
+            
+            selection.removeAllRanges();
+            document.body.removeChild(tempDiv);
+        }
+        
+        // 备用复制方法 - 纯文本
         function fallbackCopy(text) {
             const textArea = document.createElement('textarea');
             textArea.value = text;
