@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎来到元影</title>
+</head>
+<style>
+    body {
+        padding: 0;
+        width: 1200px;
+        margin: 0 auto;
+        background-color: #000;
+        scroll-behavior: smooth;
+    }
+
+    .pic-logo {
+        width: 76px;
+        height: 30px;
+        position: absolute;
+        left: 40px;
+        top: 26px;
+        transition: all 0.3s ease;
+    }
+
+    .top-area,
+    .logo-area {
+        position: relative;
+    }
+
+    .fixed-logo {
+        position: fixed;
+        left: 40px;
+        top: 18px;
+        z-index: 1000;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        position: absolute;
+        top: 8px;
+        right: 0;
+        width: 100%;
+        /* transition: all 0.3s ease; */
+    }
+
+    .navbar.fixed-nav {
+        height: 24px;
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 999;
+    }
+
+    .top-area,
+    .logo-area {
+        position: relative;
+    }
+
+    .carousel {
+        position: relative;
+        width: 100%;
+        max-width: 1200px;
+        position: relative;
+        overflow: hidden;
+        margin-top: 10px;
+    }
+
+    .carousel-inner {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-item {
+        min-width: 100%;
+    }
+
+    .top-row,
+    .bottom-grid {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .top-row div {
+        width: calc(100% / 3);
+        height: 200px;
+        margin-right: 5px;
+        background-color: grey;
+    }
+
+    .top-row div:last-child {
+        margin-right: 0;
+    }
+
+    .bottom-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 5px;
+    }
+
+    .bottom-grid div {
+        width: 100%;
+        height: 220px;
+        cursor: pointer;
+    }
+
+    .carousel-item div {
+        /* filter: grayscale(100%); */
+        transition: filter 0.3s ease;
+    }
+
+    .carousel-item div:hover {
+        filter: grayscale(0%);
+    }
+
+    .prev,
+    .next {
+        position: absolute;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 10px;
+        cursor: pointer;
+        border: none;
+        font-size: 28px;
+        height: 670px;
+        opacity: 0;
+    }
+
+    .prev {
+        left: 0;
+    }
+
+    .next {
+        right: 0;
+    }
+
+    .carousel:hover {
+        .prev {
+            opacity: 1;
+        }
+
+        .next {
+            opacity: 1;
+        }
+    }
+
+    .indicators {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .indicators span {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin: 0 5px;
+        background-color: #fff;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .indicators .active {
+        background-color: #3498db;
+    }
+
+    .pic-banner {
+        display: block;
+        width: 100%;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        position: absolute;
+        top: 8px;
+        right: 0;
+    }
+
+    .navbar ul {
+        position: absolute;
+        right: 0;
+        top: 20px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .navbar li {
+        margin: 0 20px;
+        position: relative;
+    }
+
+    .navbar li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+        padding: 10px;
+        transition: color 0.3s ease;
+    }
+
+    .navbar li a:hover {
+        color: #3498db;
+    }
+
+    .navbar li.active a {
+        color: #fff;
+        position: relative;
+        z-index: 1;
+    }
+
+    .navbar li.active::after {
+        content: '';
+        position: absolute;
+        left: 5px;
+        right: 0;
+        bottom: 0;
+        width: calc(100% - 22px);
+        height: 16px;
+        background-color: transparent;
+        border-style: solid;
+        border-width: 10px 6px 0px;
+        border-color: #1e3ae1 transparent transparent transparent;
+    }
+
+    .logo1 {
+        width: 120px;
+        height: 60px;
+        position: absolute;
+        left: 30px;
+        top: 30px;
+    }
+
+    .trapezoid-container {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+    }
+
+    .trapezoid,
+    .trapezoid1 {
+        width: 250px;
+        height: 80px;
+        background: rgba(0, 0, 0, 0.6);
+        clip-path: polygon(0% 100%, 100% 100%, 100% 0%, 30% 0%);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        box-sizing: border-box;
+        font-size: 14px;
+        padding-left: 50px;
+    }
+
+    .trapezoid1 {
+        width: 350px;
+        height: 80px;
+    }
+
+    .fixed-top {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, 0.8);
+        /* Optional: Add a background color when fixed */
+        transition: background-color 0.3s ease;
+    }
+
+    .grid-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1001;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-content {
+        margin: 16% auto;
+        padding: 10px;
+        width: 80%;
+        max-width: 800px;
+        background-color: #000;
+        border-radius: 10px;
+        position: relative;
+    }
+
+    .modal-content iframe {
+        width: 100%;
+        height: 432px;
+        border: none;
+        border-radius: 10px;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: -17px;
+        right: -36px;
+        color: rgba(255, 255, 255, .2);
+        font-size: 40px;
+        cursor: pointer;
+    }
+
+    .close-btn:hover {
+        color: #3498db;
+    }
+</style>
+
+<body>
+    <div class="top-area" id="#">
+        <img class="pic-banner" src="http://pic.yupoo.com/xiqi99520/8bf31512/63c634e3.png" alt="">
+        <img class="pic-logo" src="http://pic.yupoo.com/xiqi99520/2f98def9/76a24cd8.png" alt="">
+        <nav class="navbar">
+            <ul>
+                <li class="active"><a href="#">首页</a></li>
+                <li><a href="#carousel">作品</a></li>
+                <li><a href="#future">愿景</a></li>
+                <li><a href="#contact">团队成员</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="carousel" id="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item">
+                <div class="bottom-grid">
+                    <div><img class="grid-img"
+                            data-url="https://player.bilibili.com/player.html?isOutside=true&aid=1301934893&bvid=BV12u4m1M7sv&cid=1473535417&p=1"
+                            src="http://pic.yupoo.com/xiqi99520/a2daeff6/12d0fb9c.png" alt=""></div>
+                    <div><img class="grid-img"
+                            data-url="https://locallimit.us.sinaimg.cn/o0/GGPue0PJlx08f84nbZVe01041203mjcz0E020.mp4?label=mp4_1080p&template=1920x1080.25.0&media_id=5037918239260703&tp=8x8A3El:YTkl0eM8&us=0&ori=1&bf=4&ot=h&ps=3lckmu&uid=5HDUsR&ab=,3601-g32,8013-g0,3601-g29,3601-g19,3601-g36,3601-g27&Expires=1724957053&ssig=fSgAZ36bTV&KID=unistore,video"
+                            src="http://pic.yupoo.com/xiqi99520/40551866/a2c6d107.png" alt=""></div>
+                    <div><img class="grid-img"
+                            data-url="https://mp4playcloud-cdn.ysp.cctv.cn/o000047ik6t.Vioz10002.mp4?sdtfrom=4330701&guid=m0flqa5x_pcbko9zfd5&vkey=D25BC0CFC8BBB3E588E85CD6C929158A485B5B99E0D354F31E54253830495AB84D3F10C0FF3B50ED21616633BCBBF9FDEE339DBBBDAFCCA201B0D43281AB4A82BBBFC4A799A4B26460980C07EFB1FB64A9E4BB4ED26DDD7DE216F51CE94EC22AF629FEE07445728E45C65A555AEDD3A7F8257588E7E13BF8E1CFB288C697CA04&platform=2"
+                            src="http://pic.yupoo.com/xiqi99520/971add34/3a3e9b01.png" alt=""></div>
+                    <div><img class="grid-img"
+                            data-url="https://mp4playcloud-cdn.ysp.cctv.cn/e000026gvfk.oFfY10002.mp4?sdtfrom=4330701&guid=m0flqa5x_pcbko9zfd5&vkey=79E7A546BD2B0202FAA65899D85D0795693919249FEB370A10F653892AF1C326CD5E9649D466E17C6F644937FA120E567222576727588600BBA075993A37CA624E68D843021B3A35DA57C5529B74608D182B16DFFE240DE217B274CC4560086C17F633A223C7D026EB6C76511014BD6BD7C44A0AA05FD7915B45EB129BD2A378&platform=2"
+                            src="http://pic.yupoo.com/xiqi99520/a3f181c5/3b30861a.jpeg" alt=""></div>
+                    <div><img class="grid-img"
+                            data-url="https://article.xuexi.cn/articles/index.html?art_id=14451132923153730538&t=1723102438306&showmenu=false&study_style_id=video_default&source=share&to_audit_timestamp=2024-08-08+14%3A30%3A06&share_to=wx_single&item_id=14451132923153730538&ref_read_id=612eb39a-5dce-441f-a14e-2251cad5b69e_1723105651329"
+                            src="http://pic.yupoo.com/xiqi99520/369931fa/43083560.png" alt=""></div>
+                    <div><img class="grid-img"
+                            data-url="https://mp4playcloud-cdn.ysp.cctv.cn/m00000426vy.ttnq10002.mp4?vkey=6E1DDAD2C69CBCF834B5A9315E21E1D689D11F6286EA6C98C770D9FADE3C92146DC07ACACE89FE7953C1C32FD57E13D876D3160199D8D4D5028D9A947F2314F6F28104D09AD86CF54ACFE1AD98192ED20713237E2CAA84D54F370740535DF64ACE7B0610663FF9E4833A0EDF00E562CF&app_id=519748109&guid=m0flqa5x_pcbko9zfd5&ysign=4a122674b68bf74a4441d8c758f9b68b&ytime=1724955761&ytype=1"
+                            src="http://pic.yupoo.com/xiqi99520/3ed8fb6b/3cd40af3.png" alt=""></div>
+                    <div><img class="grid-img"
+                            data-url="https://player.bilibili.com/player.html?isOutside=true&aid=112879760048946&bvid=BV1kjvDeoEPN&cid=500001633401399&p=1"
+                            src="http://pic.yupoo.com/xiqi99520/c8b60b35/d4da12b4.png" alt=""></div>
+                    <div><img class="grid-img"
+                            data-url="https://player.bilibili.com/player.html?isOutside=true&aid=113046894675033&bvid=BV1wZH3eJEE5&cid=25646861459&p=1"
+                            src="http://pic.yupoo.com/xiqi99520/97562c26/8143939a.jpeg" alt=""></div>
+                    <div><img class="grid-img"
+                            data-url="https://player.bilibili.com/player.html?isOutside=true&aid=113046911452955&bvid=BV1AdH3eDEjG&cid=25646924598&p=1"
+                            src="http://pic.yupoo.com/xiqi99520/c3438a9b/e4fec86e.png" alt=""></div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="bottom-grid">
+                    <div><img class="grid-img"
+                            data-url="https://player.bilibili.com/player.html?isOutside=true&aid=1504130432&bvid=BV1CD421K7xk&cid=1532466849&p=1"
+                            src="http://pic.yupoo.com/xiqi99520/eb1bbee3/98f7440a.png" alt=""></div>
+                    <div><img class="grid-img" src="http://pic.yupoo.com/xiqi99520/e3c206e4/f1db3ed3.png" alt=""></div>
+                    <div><img class="grid-img" src="http://pic.yupoo.com/xiqi99520/39878a70/87a6843a.png" alt=""></div>
+                    <div><img class="grid-img" src="http://pic.yupoo.com/xiqi99520/2d3b6de3/d6d6ca81.png" alt=""></div>
+                    <div><img class="grid-img" src="http://pic.yupoo.com/xiqi99520/72070120/a5f05966.png" alt=""></div>
+                    <div><img class="grid-img" src="http://pic.yupoo.com/xiqi99520/ab647ef8/40b34b7e.png" alt=""></div>
+                    <div><img class="grid-img" src="http://pic.yupoo.com/xiqi99520/7bbfcc9a/3e31d331.png" alt=""></div>
+                    <div><img class="grid-img" src="http://pic.yupoo.com/xiqi99520/ab859288/a3bd1f34.jpeg" alt=""></div>
+                </div>
+            </div>
+        </div>
+        <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        <div class="indicators">
+            <span onclick="moveSlide(0)" class="active"></span>
+            <span onclick="moveSlide(1)"></span>
+        </div>
+    </div>
+    <div class="logo-area" id="future">
+        <img class="pic-banner" src="http://pic.yupoo.com/xiqi99520/7aeddab7/fd077149.png" alt="">
+        <img class="logo1" src="http://pic.yupoo.com/xiqi99520/044434fb/b4d12df7.png" alt="">
+        <div class="trapezoid-container">
+            <div class="trapezoid">
+                一家致力于探索和创造前沿生成式AI视频技术的创新团队。
+            </div>
+            <!-- <div class="trapezoid1">
+                我们由五位充满激情和创意的专业人士组成，每位成员都在AI视频制作领域拥有深厚 的背景和丰富的经验。
+            </div> -->
+        </div>
+    </div>
+    <div class="top-area" id="contact">
+        <img class="pic-banner" src="http://pic.yupoo.com/xiqi99520/c0f1a882/5a2e8933.png" alt="">
+    </div>
+
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <iframe id="videoFrame" height=498 width=510 src='' frameborder=0></iframe>
+        </div>
+    </div>
+    <script>
+        let currentIndex = 0;
+
+        function moveSlide(direction) {
+            const carouselInner = document.querySelector('.carousel-inner');
+            const totalItems = document.querySelectorAll('.carousel-item').length;
+            currentIndex = (currentIndex + direction + totalItems) % totalItems;
+            const translateX = -currentIndex * 100;
+            carouselInner.style.transform = `translateX(${translateX}%)`;
+
+            const indicators = document.querySelectorAll('.indicators span');
+            indicators.forEach(ind => ind.classList.remove('active'));
+            indicators[currentIndex].classList.add('active');
+        }
+
+        // Auto slide every 3 seconds
+        setInterval(() => {
+            moveSlide(1);
+        }, 114000);
+
+        document.querySelectorAll('.navbar a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelectorAll('.navbar li').forEach(li => li.classList.remove('active'));
+                this.parentElement.classList.add('active');
+                const targetId = this.getAttribute('href');
+                let offsetPosition
+                if (targetId === '#') {
+                    offsetPosition = 0
+                } else {
+                    const targetElement = document.querySelector(targetId);
+                    offsetPosition = targetElement.offsetTop - 60
+                }
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        window.onscroll = function () {
+            const logo = document.querySelector('.pic-logo');
+            const navbar = document.querySelector('.navbar');
+            const scrollY = window.scrollY;
+
+            if (scrollY > 50) {
+                logo.classList.add('fixed-logo');
+                navbar.classList.add('fixed-nav');
+            } else {
+                logo.classList.remove('fixed-logo');
+                navbar.classList.remove('fixed-nav');
+            }
+
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 80;
+                const sectionHeight = section.clientHeight;
+                const sectionId = section.getAttribute('id');
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.navbar li').forEach(li => li.classList.remove('active'));
+                    document.querySelector(`.navbar a[href="#${sectionId}"]`).parentElement.classList.add('active');
+                }
+            });
+        };
+
+        document.querySelectorAll('.grid-img').forEach(img => {
+            img.addEventListener('click', function () {
+                openModal(this.getAttribute('data-url'));
+            });
+        });
+
+        function openModal(videoSrc) {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoFrame');
+            iframe.src = videoSrc;
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoFrame');
+            modal.style.display = "none";
+            iframe.src = "";
+            iframe.cause()
+        }
+
+        // Close the modal when clicking outside of the modal content
+        window.onclick = function (event) {
+            const modal = document.getElementById('videoModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+
+</html>
